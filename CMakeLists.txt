@@ -3,4 +3,9 @@ project(Sockets)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Sockets main.cpp)
+add_executable(Sockets main.cpp
+        lib/SocketType.h
+        lib/SocketInfo.h
+        lib/TcpClient.h
+        lib/result/Result.h
+)
