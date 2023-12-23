@@ -18,6 +18,12 @@ int main() {
     std::string message = std::string("The time is now: ") + std::ctime(&time);
     std::vector<char> data(message.begin(), message.end());
     client.send_data(data);
+    auto received_result = client.receive_data();
+    if (!received_result.is_error()) {
+        auto received_data = received_result.get_success();
+        auto str = std::string(received_data.begin(), received_data.end());
+        std::cout << "Received the following string: " << str << std::endl;
+    }
     connection_result = client.close_connection();
     if (connection_result.is_error()) {
         std::cout << "connection closing error: " << connection_result.get_error() << std::endl;

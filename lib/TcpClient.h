@@ -80,6 +80,7 @@ public:
     }
 
     // This is a blocking method, will need to implement a way to make it not so.
+    [[nodiscard]]
     Result<int, std::string> send_data(const std::vector<char>& data) const noexcept {
         if (!_has_socket) {
             return Result<int, std::string>::fromError("Cannot send when connection is not open");
@@ -98,6 +99,21 @@ public:
                 return Result<int, std::string>::fromSuccess(0);
             }
         }
+    }
+
+    [[nodiscard]]
+    Result<std::vector<char>, std::string> receive_data() const noexcept {
+        if (!_has_socket) {
+            return Result<std::vector<char>, std::string>::fromError("Cannot receive when connection is not open");
+        }
+        auto buffer_length = 1000;
+        char buffer[buffer_length];
+        auto received_count = recv(_socket_fd, reinterpret_cast<char*>(&buffer), buffer_length, 0);
+        if (received_count == -1) {
+            return Result<std::vector<char>, std::string>::fromError("Unable to receive data");
+        }
+        return Result<std::vector<char>, std::string>::fromSuccess(
+                std::vector<char>(&buffer[0], &buffer[received_count]));
     }
 };
 

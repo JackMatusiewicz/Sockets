@@ -28,6 +28,10 @@ public:
     [[nodiscard]] const TError& get_error() const noexcept {
         return _error.value();
     }
+
+    [[nodiscard]] const TSuccess& get_success() const noexcept {
+        return _success.value();
+    }
 };
 
 #endif //SOCKETS_RESULT_H
