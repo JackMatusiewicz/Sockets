@@ -8,4 +8,5 @@ add_executable(Sockets main.cpp
         lib/SocketInfo.h
         lib/ConnectedSocketClient.h
         lib/result/Result.h
+        lib/ConnectedSocketClient.cpp
 )
