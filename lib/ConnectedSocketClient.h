@@ -1,5 +1,5 @@
-#ifndef SOCKETS_TCPCLIENT_H
-#define SOCKETS_TCPCLIENT_H
+#ifndef SOCKETS_CONNECTEDSOCKETCLIENT_H
+#define SOCKETS_CONNECTEDSOCKETCLIENT_H
 
 #include <unistd.h>
 #include <netdb.h>
@@ -13,14 +13,15 @@
 #include "SocketInfo.h"
 #include "result/Result.h"
 
-// Used to send and receive data from a particular endpoint that is represented by a socketInfo.
-class TcpClient {
+/// This is a client that can requires that you connect. This means that you are using the underlying send() and recv(),
+/// not the send_to() and recv_from() functions.
+class ConnectedSocketClient {
 private:
     SocketInfo _socketInfo;
     bool _has_socket;
     int _socket_fd;
 public:
-    explicit TcpClient(SocketInfo&& socketInfo)
+    explicit ConnectedSocketClient(SocketInfo&& socketInfo)
         : _socketInfo{std::move(socketInfo)}
         , _has_socket(false)
         , _socket_fd(0)
@@ -117,4 +118,4 @@ public:
     }
 };
 
-#endif //SOCKETS_TCPCLIENT_H
+#endif //SOCKETS_CONNECTEDSOCKETCLIENT_H
