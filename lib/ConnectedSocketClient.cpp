@@ -24,7 +24,7 @@ Result<int, std::string> ConnectedSocketClient::open_connection() noexcept {
             &results);
     if (result != 0) {
         std::string error_message(gai_strerror(result));
-        return Result<int, std::string>::fromError(error_message);
+        return Result<int, std::string>::fromError(std::move(error_message));
     }
     for (auto it = results; it != nullptr; it = it->ai_next) {
         int socket_fd = socket(it->ai_family, it->ai_socktype, it->ai_protocol);

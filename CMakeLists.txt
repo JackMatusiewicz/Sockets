@@ -9,4 +9,6 @@ add_executable(Sockets main.cpp
         lib/ConnectedSocketClient.h
         lib/result/Result.h
         lib/ConnectedSocketClient.cpp
+        lib/AutoConnectingSocketClient.h
+        lib/AutoConnectingSocketClient.cpp
 )
